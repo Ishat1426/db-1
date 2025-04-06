@@ -42,6 +42,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  membershipType: {
+    type: String,
+    enum: ['basic', 'monthly', 'premium'],
+    default: 'basic'
+  },
   membershipExpiry: {
     type: Date
   },
@@ -107,6 +112,20 @@ const userSchema = new mongoose.Schema({
       arms: Number
     }
   }],
+  rewards: {
+    coins: {
+      type: Number,
+      default: 0
+    },
+    lastUpdated: {
+      type: Date,
+      default: Date.now
+    }
+  },
+  profileImage: {
+    type: String,
+    default: 'default-profile.jpg'
+  },
   createdAt: {
     type: Date,
     default: Date.now

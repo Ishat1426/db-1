@@ -15,6 +15,9 @@ router.get('/profile', authMiddleware, userController.getProfile);
 // Update user profile (protected route)
 router.put('/profile', authMiddleware, userController.updateProfile);
 
+// Update fitness goal (protected route)
+router.put('/fitness-goal', authMiddleware, userController.updateFitnessGoal);
+
 // Debug endpoint to check authentication
 router.get('/debug', authMiddleware, (req, res) => {
   res.json({ 

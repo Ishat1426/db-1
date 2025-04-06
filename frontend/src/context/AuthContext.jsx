@@ -99,7 +99,8 @@ export const AuthProvider = ({ children }) => {
         register,
         login,
         logout,
-        updateProfile
+        updateProfile,
+        setUser
       }}
     >
       {children}

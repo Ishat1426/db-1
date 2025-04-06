@@ -4,6 +4,12 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 
+// Middlewares
+const loggerMiddleware = require('./middleware/loggerMiddleware');
+
+// Utility
+const logger = require('./utils/logger');
+
 // Routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
@@ -11,6 +17,13 @@ const workoutRoutes = require('./routes/workouts');
 const mealRoutes = require('./routes/meals');
 const progressRoutes = require('./routes/progress');
 const paymentRoutes = require('./routes/payments');
+const communityRoutes = require('./routes/community');
+const blogRoutes = require('./routes/blogs');
+const journeyRoutes = require('./routes/journey');
+const rewardsRoutes = require('./routes/rewards');
+const logsRoutes = require('./routes/logs');
+const chatbotRoutes = require('./routes/chatbot');
+const progressPhotosRoutes = require('./routes/progressPhotos');
 
 // Load environment variables
 dotenv.config({ path: path.resolve(__dirname, '.env') });
@@ -30,9 +43,22 @@ if (!process.env.JWT_SECRET) {
   process.exit(1);
 }
 
-// Warn about missing Razorpay credentials
+// Check Razorpay credentials
 if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
-  console.warn('Warning: Razorpay credentials are missing. Payment functionality will be limited.');
+  console.warn('WARNING: Razorpay credentials are missing or invalid. Payment functionality will be limited.');
+  console.warn('Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in your .env file.');
+  
+  // Create placeholder values for development (these won't work for real payments)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Setting placeholder Razorpay credentials for development');
+    process.env.RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || 'rzp_test_placeholder';
+    process.env.RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || 'placeholder_secret';
+  }
+} else {
+  console.log(`Razorpay credentials loaded successfully.`);
+  console.log(`Key ID: ${process.env.RAZORPAY_KEY_ID.substring(0, 10)}...`);
+  // Don't log the secret key, just confirm it exists
+  console.log(`Secret: ${process.env.RAZORPAY_KEY_SECRET ? '******** (available)' : 'MISSING'}`);
 }
 
 const app = express();
@@ -44,7 +70,8 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token']
 }));
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Request logging middleware
 app.use((req, res, next) => {
@@ -52,14 +79,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// MongoDB Atlas logging middleware
+app.use(loggerMiddleware);
+
 // MongoDB Connection with Atlas-specific options
 const connectDB = async () => {
   try {
     console.log('Connecting to MongoDB Atlas...');
     
-    // Use the new MongoDB URI provided by the user
-    const mongoURI = 'mongodb+srv://roy123:Sanyamkimumy@cluster0.jorkd6p.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-    console.log('Using MongoDB URI:', mongoURI.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@'));
+    // Use the MongoDB Atlas URI from environment variables
+    const mongoURI = process.env.MONGODB_URI;
+    console.log('Using MongoDB Atlas URI from environment variables');
     
     const mongoOptions = {
       useNewUrlParser: true,
@@ -89,10 +119,18 @@ const connectDB = async () => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/workouts', workoutRoutes);
 app.use('/api/meals', mealRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/community', communityRoutes);
+app.use('/api/journey', journeyRoutes);
+app.use('/api/blogs', blogRoutes);
+app.use('/api/rewards', rewardsRoutes);
+app.use('/api/logs', logsRoutes);
+app.use('/api/chatbot', chatbotRoutes);
+app.use('/api/progress-photos', progressPhotosRoutes);
 
 // Health check route
 app.get('/health', (req, res) => {
@@ -119,8 +157,28 @@ app.use((req, res) => {
 });
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use(async (err, req, res, next) => {
+  // Log the error to MongoDB Atlas
+  try {
+    await logger.logError({
+      error: err,
+      user: req.user?.userId,
+      context: {
+        path: req.path,
+        method: req.method,
+        query: req.query,
+        ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+        userAgent: req.headers['user-agent']
+      }
+    });
+  } catch (logError) {
+    console.error('Error logging to MongoDB:', logError);
+  }
+
+  // Log to console
   console.error('Server error:', err);
+  
+  // Send response
   res.status(err.status || 500).json({
     message: err.message || 'Something went wrong!',
     error: process.env.NODE_ENV === 'production' ? 'An error occurred' : err.stack

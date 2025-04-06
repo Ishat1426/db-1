@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const API_URL = 'http://localhost:5007/api';
 
@@ -39,6 +40,24 @@ const Workouts = () => {
   const [workoutPrograms, setWorkoutPrograms] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Parse query parameters on initial load
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const categoryParam = searchParams.get('category');
+    
+    if (categoryParam) {
+      const category = workoutCategories.find(
+        cat => cat.name.toLowerCase() === categoryParam.toLowerCase()
+      );
+      
+      if (category) {
+        setSelectedCategory(category);
+      }
+    }
+  }, [location.search, workoutCategories]);
   
   // Fetch workout data when a category is selected
   useEffect(() => {
@@ -71,12 +90,20 @@ const Workouts = () => {
     fetchWorkouts();
   }, [selectedCategory]);
   
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    // Update the URL with the selected category
+    navigate(`/workouts?category=${category.name}`);
+  };
+  
   const handleBack = () => {
     if (selectedDifficulty) {
       setSelectedDifficulty(null);
     } else if (selectedCategory) {
       setSelectedCategory(null);
       setWorkoutPrograms(null);
+      // Remove category from URL
+      navigate('/workouts');
     }
   };
   
@@ -132,7 +159,7 @@ const Workouts = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 className="rounded-xl overflow-hidden cursor-pointer transform transition-all duration-300 hover:-translate-y-1 shadow-lg h-full relative"
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => handleCategorySelect(category)}
               >
                 <img 
                   src={category.image} 

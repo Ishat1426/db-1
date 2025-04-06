@@ -118,18 +118,68 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Meal Categories - Moved before Workout Categories for better visibility */}
+      <section className="py-16 px-4 relative">
+        {/* Decorative background element for meal section */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-secondary)] to-transparent opacity-5"></div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <h2 className="text-3xl font-bold text-[var(--color-light)] mb-3 text-center">
+            <span className="text-[var(--color-secondary)]">Healthy</span> Meal Ideas
+          </h2>
+          <p className="text-[var(--color-light-alt)] text-center max-w-2xl mx-auto mb-10">
+            Discover nutritious and delicious meal options that complement your workout routine
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {mealCategories.map((category, index) => (
+              <motion.div
+                key={category.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Link
+                  to={`/meals?category=${category.name}`}
+                  className="block relative rounded-xl overflow-hidden group h-80 shadow-lg border border-[var(--color-secondary)] border-opacity-20"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-dark)] to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300" />
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <h3 className="text-2xl font-bold text-[var(--color-light)] mb-2">
+                      {category.name}
+                    </h3>
+                    <p className="text-[var(--color-light-alt)] group-hover:opacity-100 transition-opacity duration-300">
+                      {category.description}
+                    </p>
+                    <button className="mt-4 bg-[var(--color-secondary)] text-white px-4 py-2 rounded-lg text-sm hover:bg-[var(--color-secondary-dark)] transition-colors shadow-lg w-fit">
+                      View Meals
+                    </button>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Workout Categories */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-[var(--color-dark-alt)] bg-opacity-30">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-[var(--color-light)] mb-3 text-center">
-            Workout Categories
+            <span className="text-[var(--color-primary)]">Workout</span> Categories
           </h2>
           <p className="text-[var(--color-light-alt)] text-center max-w-2xl mx-auto mb-10">
             Explore diverse workout styles designed to help you reach your fitness goals
           </p>
           
           {/* 2x2 Grid for workout categories */}
-          <div className="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {[...workoutCategories]
               .sort((a, b) => a.position - b.position)
               .map((category, index) => (
@@ -141,7 +191,7 @@ const Home = () => {
                   viewport={{ once: true }}
                 >
                   <Link
-                    to={`/workouts?category=${category.name}`}
+                    to={`/workouts?category=${encodeURIComponent(category.name)}`}
                     className="block rounded-xl overflow-hidden shadow-lg relative transition-all duration-300 hover:-translate-y-1 h-48"
                   >
                     <img 
@@ -161,46 +211,112 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Meal Categories */}
-      <section className="py-16 bg-[var(--color-dark-alt)] bg-opacity-30">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* Blog Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-[var(--color-light)] mb-3 text-center">
-            Meal Ideas
+            <span className="text-[var(--color-primary)]">Featured</span> Articles
           </h2>
           <p className="text-[var(--color-light-alt)] text-center max-w-2xl mx-auto mb-10">
-            Discover nutritious and delicious meal options that complement your workout routine
+            Explore our collection of expert-written articles on fitness, nutrition, and wellness
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {mealCategories.map((category, index) => (
-              <motion.div
-                key={category.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Link
-                  to={`/meals?category=${category.name}`}
-                  className="block relative rounded-xl overflow-hidden group h-80 shadow-lg"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Blog 1 - Science Behind Effective Workouts */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              viewport={{ once: true }}
+              className="premium-card overflow-hidden flex flex-col h-full"
+            >
+              <div className="h-48 overflow-hidden rounded-t-lg relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                  alt="Workout Science" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-dark)] to-transparent opacity-60"></div>
+              </div>
+              <div className="p-6 flex-grow flex flex-col">
+                <h3 className="text-xl font-bold text-[var(--color-light)] mb-3">The Science Behind Effective Workouts</h3>
+                <p className="text-[var(--color-light-alt)] mb-4 flex-grow">
+                  Understand the muscle physiology, metabolism, and recovery principles that make your workouts more effective.
+                </p>
+                <a 
+                  href="https://www.localfitseattle.com/blog/the-science-behind-effective-workouts" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn-primary text-sm px-4 py-2 rounded-lg self-start hover:bg-[var(--color-primary-dark)] transition-colors duration-300"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-dark)] to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300" />
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 p-8">
-                    <h3 className="text-2xl font-bold text-[var(--color-light)] mb-2">
-                      {category.name}
-                    </h3>
-                    <p className="text-[var(--color-light-alt)] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {category.description}
-                    </p>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+                  Read More
+                </a>
+              </div>
+            </motion.div>
+            
+            {/* Blog 2 - Nutrition Myths Debunked */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              viewport={{ once: true }}
+              className="premium-card overflow-hidden flex flex-col h-full"
+            >
+              <div className="h-48 overflow-hidden rounded-t-lg relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                  alt="Nutrition Myths" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-dark)] to-transparent opacity-60"></div>
+              </div>
+              <div className="p-6 flex-grow flex flex-col">
+                <h3 className="text-xl font-bold text-[var(--color-light)] mb-3">Nutrition Myths Debunked</h3>
+                <p className="text-[var(--color-light-alt)] mb-4 flex-grow">
+                  Discover the truth behind common nutrition misconceptions and learn evidence-based approaches to healthy eating.
+                </p>
+                <a 
+                  href="https://www.healthline.com/nutrition/biggest-lies-of-nutrition" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn-secondary text-sm px-4 py-2 rounded-lg self-start hover:bg-[var(--color-secondary-dark)] transition-colors duration-300"
+                >
+                  Read More
+                </a>
+              </div>
+            </motion.div>
+            
+            {/* Blog 3 - Exercise and Mental Health */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              viewport={{ once: true }}
+              className="premium-card overflow-hidden flex flex-col h-full"
+            >
+              <div className="h-48 overflow-hidden rounded-t-lg relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                  alt="Mental Health" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-dark)] to-transparent opacity-60"></div>
+              </div>
+              <div className="p-6 flex-grow flex flex-col">
+                <h3 className="text-xl font-bold text-[var(--color-light)] mb-3">Exercise and Mental Wellbeing</h3>
+                <p className="text-[var(--color-light-alt)] mb-4 flex-grow">
+                  Explore the profound connection between physical activity and mental health backed by scientific research.
+                </p>
+                <a 
+                  href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7874196/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn-accent text-sm px-4 py-2 rounded-lg self-start hover:bg-[var(--color-accent-dark)] transition-colors duration-300 text-[var(--color-dark)]"
+                >
+                  Read More
+                </a>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,6 +8,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [scrollDirection, setScrollDirection] = useState('up');
+  const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   const handleLogout = async () => {
     await logout();
@@ -17,8 +20,15 @@ const Navbar = () => {
   const navItems = [
     { name: 'Workouts', path: '/workouts' },
     { name: 'Meals', path: '/meals' },
-    { name: 'Membership', path: '/membership' },
+    { name: 'Blog', path: '/blog' },
     { name: 'Community', path: '/community' },
+    { name: 'Membership', path: '/membership' },
+  ];
+
+  const userNavItems = [
+    { name: 'Dashboard', path: '/dashboard' },
+    { name: 'Journey', path: '/journey' },
+    { name: 'Rewards', path: '/rewards' },
   ];
 
   useEffect(() => {
@@ -38,6 +48,40 @@ const Navbar = () => {
       window.removeEventListener('scroll', updateScrollDirection);
     };
   }, [scrollDirection]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setAccountDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleMenuEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setAccountDropdownOpen(true);
+  };
+
+  const handleMenuLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setAccountDropdownOpen(false);
+    }, 100);
+  };
+
+  const toggleAccountDropdown = () => {
+    setAccountDropdownOpen(!accountDropdownOpen);
+  };
 
   const navbarClass = scrollDirection === 'down' ? 'transform -translate-y-full' : 'transform translate-y-0';
 
@@ -73,12 +117,36 @@ const Navbar = () => {
               
               {user ? (
                 <div className="flex items-center space-x-4">
-                  <Link 
-                    to="/dashboard" 
-                    className="px-3 py-2 text-sm font-medium text-[var(--color-light)] hover:text-[var(--color-primary-light)]"
+                  <div 
+                    className="relative" 
+                    ref={dropdownRef}
+                    onMouseEnter={handleMenuEnter}
+                    onMouseLeave={handleMenuLeave}
                   >
-                    Dashboard
-                  </Link>
+                    <button 
+                      onClick={toggleAccountDropdown}
+                      className="px-3 py-2 text-sm font-medium text-[var(--color-light)] hover:text-[var(--color-primary-light)] flex items-center"
+                    >
+                      My Account
+                      <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ml-1 transform transition-transform ${accountDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {accountDropdownOpen && (
+                      <div className="absolute left-0 mt-2 w-48 bg-[var(--color-dark-alt)] rounded-md shadow-lg py-1 z-10">
+                        {userNavItems.map(item => (
+                          <Link
+                            key={item.name}
+                            to={item.path}
+                            className="block px-4 py-2 text-sm text-[var(--color-light)] hover:bg-[var(--color-dark)] hover:text-[var(--color-primary-light)]"
+                            onClick={() => setAccountDropdownOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <button 
                     onClick={handleLogout}
                     className="btn-secondary"
@@ -149,13 +217,16 @@ const Navbar = () => {
               
               {user ? (
                 <>
-                  <Link 
-                    to="/dashboard" 
-                    className="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-light)] hover:text-[var(--color-primary-light)]"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Dashboard
-                  </Link>
+                  {userNavItems.map(item => (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      className="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-light)] hover:text-[var(--color-primary-light)]"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
                   <button 
                     onClick={() => {
                       handleLogout();

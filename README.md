@@ -134,4 +134,26 @@ npm run test:routes
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Chatbot Integration
+
+DietBuddy now includes an AI-powered chatbot assistant (FitGenie) that can provide users with fitness and nutrition advice. The chatbot uses Google's Gemini API to generate helpful responses tailored to fitness and nutrition queries.
+
+### Chatbot Features
+- Accessible from any page via a floating chat button in the bottom right corner
+- Provides concise fitness and nutrition advice in bullet point format
+- Real-time chat interface with typing indicators
+
+### Technical Implementation
+- Backend: Integrated with Google's Gemini API (model: gemini-1.5-pro)
+- Frontend: React component with a modern, responsive chat interface
+- API: RESTful endpoint at `/api/chatbot/message` for communication with the Gemini API
+
+### Configuration
+To use the chatbot feature, you need to:
+1. Obtain a Gemini API key from [Google AI Studio](https://makersuite.google.com/)
+2. Add your API key to the `.env` file:
+   ```
+   GEMINI_API_KEY=your_api_key_here
+   ``` 

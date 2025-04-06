@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Workout = require('../models/Workout');
 const Meal = require('../models/Meal');
+const logger = require('../utils/logger');
 
 // Fallback data for when database isn't available
 const fallbackProgress = {
@@ -111,9 +112,37 @@ exports.addWorkoutToHistory = async (req, res) => {
     user.progress.push(progress);
     await user.save();
 
+    // Log workout completion
+    await logger.logWorkoutComplete({
+      user: user.id,
+      details: {
+        workoutId,
+        workoutName,
+        duration,
+        calories,
+        completed
+      },
+      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+      userAgent: req.headers['user-agent']
+    });
+
     res.json({ progress });
   } catch (error) {
     console.error('Error adding workout to history:', error.message);
+    
+    // Log error
+    await logger.logError({
+      error,
+      user: req.user?.userId,
+      context: { 
+        action: 'addWorkoutToHistory',
+        workoutId: req.body?.workoutId,
+        workoutName: req.body?.workoutName
+      },
+      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+      userAgent: req.headers['user-agent']
+    });
+    
     res.status(500).json({ message: 'Failed to add workout to history' });
   }
 };
@@ -150,9 +179,36 @@ exports.addMealToHistory = async (req, res) => {
     user.progress.push(progress);
     await user.save();
 
+    // Log meal tracking
+    await logger.logMealTracking({
+      user: user.id,
+      details: {
+        mealId,
+        mealName,
+        calories,
+        followed
+      },
+      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+      userAgent: req.headers['user-agent']
+    });
+
     res.json({ progress });
   } catch (error) {
     console.error('Error adding meal to history:', error.message);
+    
+    // Log error
+    await logger.logError({
+      error,
+      user: req.user?.userId,
+      context: { 
+        action: 'addMealToHistory',
+        mealId: req.body?.mealId,
+        mealName: req.body?.mealName
+      },
+      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+      userAgent: req.headers['user-agent']
+    });
+    
     res.status(500).json({ message: 'Failed to add meal to history' });
   }
 };
@@ -183,9 +239,30 @@ exports.getWorkoutHistory = async (req, res) => {
       }))
       .sort((a, b) => new Date(b.date) - new Date(a.date));
 
+    // Log activity view
+    await logger.logPageView({
+      user: user.id,
+      details: { 
+        page: 'workout-history',
+        recordsCount: workoutHistory.length
+      },
+      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+      userAgent: req.headers['user-agent']
+    });
+
     res.json({ workouts: workoutHistory });
   } catch (error) {
     console.error('Error fetching workout history:', error.message);
+    
+    // Log error
+    await logger.logError({
+      error,
+      user: req.user?.userId,
+      context: { action: 'getWorkoutHistory' },
+      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+      userAgent: req.headers['user-agent']
+    });
+    
     res.json({ workouts: fallbackProgress.workouts });
   }
 };

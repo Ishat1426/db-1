@@ -27,19 +27,19 @@ router.get('/videos/:category', async (req, res) => {
         ],
         intermediate: [
           { id: 'wl-i1', name: 'Jogging', duration: '20 minutes', calories: '200-250', description: 'Moderate pace jogging', videoUrl: 'https://youtube.com/watch?v=jogging' },
-          { id: 'wl-i2', name: 'Mountain Climbers', duration: '30 seconds × 4 sets', calories: '120-150', description: 'Dynamic plank with alternating knee drives', videoUrl: 'https://youtube.com/watch?v=mountain-climbers' },
+          { id: 'wl-i2', name: 'Mountain Climbers', duration: '30 seconds × 4 sets', calories: '120-150', description: 'Dynamic plank with alternating knee drives', videoUrl: 'https://youtu.be/kLh-uczlPLg?si=xjcCqpYj7ExMNl9C' },
           { id: 'wl-i3', name: 'Bicycle Crunches', duration: '20 reps × 3 sets', calories: '100-120', description: 'Alternating elbow-to-knee crunches', videoUrl: 'https://youtube.com/watch?v=bicycle-crunches' },
           { id: 'wl-i4', name: 'Jump Squats', duration: '15 reps × 3 sets', calories: '150-180', description: 'Explosive squats with jump at top', videoUrl: 'https://youtube.com/watch?v=jump-squats' },
-          { id: 'wl-i5', name: 'Russian Twists', duration: '15 reps × 3 sets', calories: '80-100', description: 'Seated twisting motion targeting obliques', videoUrl: 'https://youtube.com/watch?v=russian-twists' },
-          { id: 'wl-i6', name: 'Lateral Lunges', duration: '12 reps per side × 3 sets', calories: '120-140', description: 'Side lunges to target inner and outer thighs', videoUrl: 'https://youtube.com/watch?v=lateral-lunges' }
+          { id: 'wl-i5', name: 'Russian Twists', duration: '15 reps × 3 sets', calories: '80-100', description: 'Seated twisting motion targeting obliques', videoUrl: 'https://youtu.be/5xv0DKqe5XQ?si=Z_38z081zXMTMpgP' },
+          { id: 'wl-i6', name: 'Lateral Lunges', duration: '12 reps per side × 3 sets', calories: '120-140', description: 'Side lunges to target inner and outer thighs', videoUrl: 'https://youtu.be/gwWv7aPcD88?si=yX_OLmIzpyVxrN84' }
         ],
         hardcore: [
-          { id: 'wl-h1', name: 'HIIT Sprints', duration: '30 seconds sprint, 30 seconds rest × 10', calories: '300-350', description: 'Maximum effort sprint intervals', videoUrl: 'https://youtube.com/watch?v=hiit-sprints' },
-          { id: 'wl-h2', name: 'Burpees', duration: '20 reps × 4 sets', calories: '200-250', description: 'Full-body explosive exercise combining squat, plank, and jump', videoUrl: 'https://youtube.com/watch?v=burpees' },
-          { id: 'wl-h3', name: 'Box Jumps', duration: '15 reps × 4 sets', calories: '180-220', description: 'Explosive jumps onto an elevated platform', videoUrl: 'https://youtube.com/watch?v=box-jumps' },
-          { id: 'wl-h4', name: 'Kettlebell Swings', duration: '20 reps × 4 sets', calories: '200-240', description: 'Dynamic swing exercise with kettlebell', videoUrl: 'https://youtube.com/watch?v=kettlebell-swings' },
-          { id: 'wl-h5', name: 'Medicine Ball Slams', duration: '15 reps × 4 sets', calories: '150-180', description: 'Explosive slamming of medicine ball', videoUrl: 'https://youtube.com/watch?v=medicine-ball-slams' },
-          { id: 'wl-h6', name: 'Battle Ropes', duration: '30 seconds × 5 sets', calories: '200-250', description: 'High-intensity rope exercise', videoUrl: 'https://youtube.com/watch?v=battle-ropes' }
+          { id: 'wl-h1', name: 'HIIT Sprints', duration: '30 seconds sprint, 30 seconds rest × 10', calories: '300-350', description: 'Maximum effort sprint intervals', videoUrl: 'https://youtu.be/T401iOs5ZpE?si=pNaJ3Fmoxey1y-KC' },
+          { id: 'wl-h2', name: 'Burpees', duration: '20 reps × 4 sets', calories: '200-250', description: 'Full-body explosive exercise combining squat, plank, and jump', videoUrl: 'https://youtu.be/auBLPXO8Fww?si=fvnG_hrc10tHyOJs' },
+          { id: 'wl-h3', name: 'Box Jumps', duration: '15 reps × 4 sets', calories: '180-220', description: 'Explosive jumps onto an elevated platform', videoUrl: 'https://youtu.be/DhTd3Gb4gNU?si=up0ONGwPOjSXMUwC' },
+          { id: 'wl-h4', name: 'Kettlebell Swings', duration: '20 reps × 4 sets', calories: '200-240', description: 'Dynamic swing exercise with kettlebell', videoUrl: 'https://youtu.be/cY38L70lxro?si=34k2e9tFHifEAJ_B' },
+          { id: 'wl-h5', name: 'Medicine Ball Slams', duration: '15 reps × 4 sets', calories: '150-180', description: 'Explosive slamming of medicine ball', videoUrl: 'https://youtu.be/QxYhFwMd1Ks?si=j4Mfg5ffq61QMifj' },
+          { id: 'wl-h6', name: 'Battle Ropes', duration: '30 seconds × 5 sets', calories: '200-250', description: 'High-intensity rope exercise', videoUrl: 'https://youtu.be/zw0OMi00X5g?si=sErMi2g2s9aGg8k5' }
         ]
       },
       'Muscle Building': {
@@ -54,7 +54,7 @@ router.get('/videos/:category', async (req, res) => {
           
           // Legs
           { id: 'mb-legs-b1', name: 'Assisted Squats', duration: '15 reps × 3 sets', calories: '80-100', description: 'Squats holding onto support for balance', videoUrl: 'https://youtube.com/watch?v=assisted-squats', bodyPart: 'Legs' },
-          { id: 'mb-legs-b2', name: 'Glute Bridges', duration: '15 reps × 3 sets', calories: '60-80', description: 'Hip raises to target glutes', videoUrl: 'https://youtube.com/watch?v=glute-bridges', bodyPart: 'Legs' },
+          { id: 'mb-legs-b2', name: 'Glute Bridges', duration: '15 reps × 3 sets', calories: '60-80', description: 'Hip raises to target glutes', videoUrl: 'https://youtu.be/C7qnbmpLNGI?si=s3ZcxzYJfzVBhRHls', bodyPart: 'Legs' },
           
           // Shoulders
           { id: 'mb-shoulders-b1', name: 'Seated Shoulder Press', duration: '10 reps × 3 sets', calories: '70-90', description: 'Overhead press while seated for stability', videoUrl: 'https://youtube.com/watch?v=shoulder-press', bodyPart: 'Shoulders' },
@@ -64,10 +64,10 @@ router.get('/videos/:category', async (req, res) => {
           // Chest
           { id: 'mb-chest-i1', name: 'Push-Ups', duration: '15 reps × 4 sets', calories: '100-120', description: 'Standard push-ups from plank position', videoUrl: 'https://youtube.com/watch?v=pushups', bodyPart: 'Chest' },
           { id: 'mb-chest-i2', name: 'Dumbbell Bench Press', duration: '12 reps × 4 sets', calories: '110-130', description: 'Chest press while lying on bench', videoUrl: 'https://youtube.com/watch?v=dumbbell-bench', bodyPart: 'Chest' },
-          { id: 'mb-chest-i3', name: 'Dumbbell Flyes', duration: '12 reps × 3 sets', calories: '90-110', description: 'Opening arms wide while lying on bench', videoUrl: 'https://youtube.com/watch?v=dumbbell-flyes', bodyPart: 'Chest' },
+          { id: 'mb-chest-i3', name: 'Dumbbell Flyes', duration: '12 reps × 3 sets', calories: '90-110', description: 'Opening arms wide while lying on bench', videoUrl: 'https://youtu.be/FDay9wFe5uE?si=8_-xRnP1a1YFUA0o', bodyPart: 'Chest' },
           
           // Back
-          { id: 'mb-back-i1', name: 'Bent-Over Rows', duration: '12 reps × 4 sets', calories: '100-120', description: 'Back exercise pulling weights from bent position', videoUrl: 'https://youtube.com/watch?v=bent-rows', bodyPart: 'Back' },
+          { id: 'mb-back-i1', name: 'Bent-Over Rows', duration: '12 reps × 4 sets', calories: '100-120', description: 'Back exercise pulling weights from bent position', videoUrl: 'https://youtu.be/6FZHJGzMFEc?si=tMwSFR3nujeRuNfG', bodyPart: 'Back' },
           { id: 'mb-back-i2', name: 'One-Arm Dumbbell Rows', duration: '10 reps per arm × 3 sets', calories: '90-110', description: 'Single-arm rowing motion with dumbbell', videoUrl: 'https://youtube.com/watch?v=one-arm-rows', bodyPart: 'Back' },
           { id: 'mb-back-i3', name: 'Face Pulls', duration: '15 reps × 3 sets', calories: '80-100', description: 'Pulling resistance band toward face to work rear deltoids', videoUrl: 'https://youtube.com/watch?v=face-pulls', bodyPart: 'Back' },
           
@@ -78,24 +78,24 @@ router.get('/videos/:category', async (req, res) => {
           
           // Shoulders
           { id: 'mb-shoulders-i1', name: 'Standing Shoulder Press', duration: '12 reps × 3 sets', calories: '90-110', description: 'Overhead press while standing', videoUrl: 'https://youtube.com/watch?v=standing-press', bodyPart: 'Shoulders' },
-          { id: 'mb-shoulders-i2', name: 'Lateral Raises', duration: '12 reps × 3 sets', calories: '80-100', description: 'Raising dumbbells to sides at shoulder level', videoUrl: 'https://youtube.com/watch?v=lateral-raises', bodyPart: 'Shoulders' },
+          { id: 'mb-shoulders-i2', name: 'Lateral Raises', duration: '12 reps × 3 sets', calories: '80-100', description: 'Raising dumbbells to sides at shoulder level', videoUrl: 'https://youtu.be/lq7eLC30b9w?si=miggXZdIQw1K-aYZ', bodyPart: 'Shoulders' },
           { id: 'mb-shoulders-i3', name: 'Front Raises', duration: '12 reps × 3 sets', calories: '80-100', description: 'Raising dumbbells to front at shoulder level', videoUrl: 'https://youtube.com/watch?v=front-raises', bodyPart: 'Shoulders' }
         ],
         hardcore: [
           // Chest
-          { id: 'mb-chest-h1', name: 'Bench Press', duration: '8 reps × 5 sets', calories: '150-180', description: 'Barbell chest press on bench', videoUrl: 'https://youtube.com/watch?v=bench-press', bodyPart: 'Chest' },
-          { id: 'mb-chest-h2', name: 'Incline Dumbbell Press', duration: '10 reps × 4 sets', calories: '130-160', description: 'Pressing dumbbells on inclined bench', videoUrl: 'https://youtube.com/watch?v=incline-press', bodyPart: 'Chest' },
+          { id: 'mb-chest-h1', name: 'Bench Press', duration: '8 reps × 5 sets', calories: '150-180', description: 'Barbell chest press on bench', videoUrl: 'https://youtu.be/SCVCLChPQFY?si=az4tTWxg908rcMxv', bodyPart: 'Chest' },
+          { id: 'mb-chest-h2', name: 'Incline Dumbbell Press', duration: '10 reps × 4 sets', calories: '130-160', description: 'Pressing dumbbells on inclined bench', videoUrl: 'https://youtu.be/lJ2o89kcnxY?si=-UfKOYwO5CPbEgGa', bodyPart: 'Chest' },
           { id: 'mb-chest-h3', name: 'Weighted Dips', duration: '8 reps × 4 sets', calories: '140-170', description: 'Dips with additional weight for chest', videoUrl: 'https://youtube.com/watch?v=weighted-dips', bodyPart: 'Chest' },
           
           // Back
           { id: 'mb-back-h1', name: 'Pull-Ups', duration: '8 reps × 4 sets', calories: '120-150', description: 'Bodyweight pulling exercise on bar', videoUrl: 'https://youtube.com/watch?v=pullups', bodyPart: 'Back' },
           { id: 'mb-back-h2', name: 'Barbell Rows', duration: '10 reps × 4 sets', calories: '140-170', description: 'Bent-over rowing with barbell', videoUrl: 'https://youtube.com/watch?v=barbell-rows', bodyPart: 'Back' },
-          { id: 'mb-back-h3', name: 'Deadlifts', duration: '6 reps × 5 sets', calories: '180-220', description: 'Full posterior chain exercise with barbell', videoUrl: 'https://youtube.com/watch?v=deadlifts', bodyPart: 'Back' },
+          { id: 'mb-back-h3', name: 'Deadlifts', duration: '6 reps × 5 sets', calories: '180-220', description: 'Full posterior chain exercise with barbell', videoUrl: 'https://youtu.be/AweC3UaM14o?si=uINZjvwcpqmOEaA9', bodyPart: 'Back' },
           
           // Legs
-          { id: 'mb-legs-h1', name: 'Barbell Squats', duration: '8 reps × 5 sets', calories: '170-200', description: 'Full squats with barbell', videoUrl: 'https://youtube.com/watch?v=barbell-squats', bodyPart: 'Legs' },
-          { id: 'mb-legs-h2', name: 'Weighted Lunges', duration: '8 reps per leg × 4 sets', calories: '150-180', description: 'Heavy lunges with barbell or dumbbells', videoUrl: 'https://youtube.com/watch?v=weighted-lunges', bodyPart: 'Legs' },
-          { id: 'mb-legs-h3', name: 'Leg Press', duration: '10 reps × 4 sets', calories: '160-190', description: 'Machine-based leg pressing exercise', videoUrl: 'https://youtube.com/watch?v=leg-press', bodyPart: 'Legs' },
+          { id: 'mb-legs-h1', name: 'Barbell Squats', duration: '8 reps × 5 sets', calories: '170-200', description: 'Full squats with barbell', videoUrl: 'https://youtu.be/rrJIyZGlK8c?si=R5yQDkBEQEhbcWtF', bodyPart: 'Legs' },
+          { id: 'mb-legs-h2', name: 'Weighted Lunges', duration: '8 reps per leg × 4 sets', calories: '150-180', description: 'Heavy lunges with barbell or dumbbells', videoUrl: 'https://youtu.be/_qwLdYywo_A?si=a6BAR4PENBpUZJgO', bodyPart: 'Legs' },
+          { id: 'mb-legs-h3', name: 'Leg Press', duration: '10 reps × 4 sets', calories: '160-190', description: 'Machine-based leg pressing exercise', videoUrl: 'https://youtube/MpEydcQ1oDw?si=kKSGAW6NbT_SkLGa', bodyPart: 'Legs' },
           
           // Shoulders
           { id: 'mb-shoulders-h1', name: 'Military Press', duration: '8 reps × 4 sets', calories: '130-160', description: 'Strict overhead press with barbell', videoUrl: 'https://youtube.com/watch?v=military-press', bodyPart: 'Shoulders' },
@@ -151,12 +151,12 @@ router.get('/videos/:category', async (req, res) => {
       },
       'HIIT': {
         beginner: [
-          { id: 'hiit-b1', name: 'Marching in Place', duration: '30 seconds on, 30 seconds rest × 5', calories: '80-100', description: 'High knees while stationary', videoUrl: 'https://youtube.com/watch?v=marching' },
-          { id: 'hiit-b2', name: 'Modified Jumping Jacks', duration: '30 seconds on, 30 seconds rest × 5', calories: '90-110', description: 'Lower impact jumping jacks', videoUrl: 'https://youtube.com/watch?v=modified-jumps' },
-          { id: 'hiit-b3', name: 'Step Touches', duration: '30 seconds on, 30 seconds rest × 5', calories: '70-90', description: 'Side-to-side stepping motion', videoUrl: 'https://youtube.com/watch?v=step-touches' },
-          { id: 'hiit-b4', name: 'Bodyweight Squats', duration: '30 seconds on, 30 seconds rest × 5', calories: '90-110', description: 'Basic squat movement', videoUrl: 'https://youtube.com/watch?v=bodyweight-squats' },
-          { id: 'hiit-b5', name: 'Incline Push-Ups', duration: '30 seconds on, 30 seconds rest × 5', calories: '80-100', description: 'Push-ups with hands elevated', videoUrl: 'https://youtube.com/watch?v=incline-pushups' },
-          { id: 'hiit-b6', name: 'Seated Punches', duration: '30 seconds on, 30 seconds rest × 5', calories: '60-80', description: 'Punching motion while seated', videoUrl: 'https://youtube.com/watch?v=seated-punches' }
+          { id: 'hiit-b1', name: 'Marching in Place', duration: '30 seconds on, 30 seconds rest × 5', calories: '80-100', description: 'High knees while stationary', videoUrl: 'https://youtu.be/Ac8M_Osjy6s?si=WNlMqkHIMUjVDG9X' },
+          { id: 'hiit-b2', name: 'Modified Jumping Jacks', duration: '30 seconds on, 30 seconds rest × 5', calories: '90-110', description: 'Lower impact jumping jacks', videoUrl: 'https://youtu.be/Ac8M_Osjy6s?si=WNlMqkHIMUjVDG9X' },
+          { id: 'hiit-b3', name: 'Step Touches', duration: '30 seconds on, 30 seconds rest × 5', calories: '70-90', description: 'Side-to-side stepping motion', videoUrl: 'https://youtu.be/wH9hsR7Ck_M?si=TWwEQk7JpW7qrl0K' },
+          { id: 'hiit-b4', name: 'Bodyweight Squats', duration: '30 seconds on, 30 seconds rest × 5', calories: '90-110', description: 'Basic squat movement', videoUrl: 'https://youtu.be/8uoaYwS6iFM?si=Cb9XHyAx5hvhWE5z' },
+          { id: 'hiit-b5', name: 'Incline Push-Ups', duration: '30 seconds on, 30 seconds rest × 5', calories: '80-100', description: 'Push-ups with hands elevated', videoUrl: 'https://youtu.be/QAF830S96gs?si=FK7TNMBv-Zav4CiA' },
+          { id: 'hiit-b6', name: 'Seated Punches', duration: '30 seconds on, 30 seconds rest × 5', calories: '60-80', description: 'Punching motion while seated', videoUrl: 'https://youtu.be/BqIryHLrTAg?si=tyoKpUUcUcH3y9Sj' }
         ],
         intermediate: [
           { id: 'hiit-i1', name: 'Jumping Jacks', duration: '40 seconds on, 20 seconds rest × 6', calories: '140-170', description: 'Full jumping jacks at moderate pace', videoUrl: 'https://youtube.com/watch?v=jumping-jacks' },

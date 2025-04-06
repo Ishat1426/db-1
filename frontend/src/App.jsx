@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import Chatbot from './components/Chatbot';
 import Home from './pages/Home.jsx';
 import Workouts from './pages/Workouts.jsx';
 import Meals from './pages/Meals.jsx';
@@ -10,6 +11,11 @@ import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import Journey from './pages/Journey.jsx';
+import Rewards from './pages/Rewards.jsx';
+import Blog from './pages/Blog.jsx';
+import BlogPost from './pages/BlogPost.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 
 function App() {
   return (
@@ -29,6 +35,8 @@ function App() {
               <Route path="/community" element={<Community />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
               <Route
                 path="/dashboard"
                 element={
@@ -37,8 +45,35 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route
+                path="/journey"
+                element={
+                  <PrivateRoute>
+                    <Journey />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/rewards"
+                element={
+                  <PrivateRoute>
+                    <Rewards />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <PrivateRoute>
+                    <AdminDashboard />
+                  </PrivateRoute>
+                }
+              />
             </Routes>
           </main>
+          
+          {/* Chatbot component - available on all pages */}
+          <Chatbot />
         </div>
       </Router>
     </AuthProvider>
