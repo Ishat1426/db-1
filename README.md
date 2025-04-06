@@ -14,7 +14,9 @@ The project is organized into two main folders:
 - User authentication (register, login, profile management)
 - Workout programs based on fitness goals and difficulty levels
 - Meal plans categorized by type (vegetarian/non-vegetarian) and meal time
-- Responsive design that works on mobile and desktop
+- community to stay on path
+- reward system to gamify the experience
+
 
 ## Prerequisites
 
